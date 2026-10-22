@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1424">
+  <meta name="description" content="拖动焦距和光圈，点击画面选择对焦对象，直观看见透视、纵深压缩与景深。">
+  <title>光学游乐场 · 焦距与景深</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="header">
+      <div><div class="eyebrow">OPTICS PLAYGROUND / 02</div><h1>镜头会怎样改变空间？</h1><p>让人物在画面里保持同样大小，拖动焦距看看前景与远山的比例。</p></div>
+      <div class="header-badge">可交互镜头实验</div>
+    </header>
+    <section class="layout">
+      <div class="visual-column">
+        <div class="camera card">
+          <div class="canvas-wrap">
+            <canvas id="scene" width="960" height="600" role="img" aria-label="有近处花朵、中间人物和远处房屋及山峰的透视场景；可点击选择对焦对象"></canvas>
+            <div class="view-tag" id="viewTag">50 mm · 标准视角</div>
+            <div class="view-hint">点花、人物或房屋，选择清晰的位置</div>
+          </div>
+          <div class="scene-footer"><span>相机位置 <b id="cameraDistance">3.8 m</b></span><span>人物画面大小 <b>固定</b></span><span id="perspectiveLabel">自然透视</span></div>
+        </div>
+        <div class="distance-card card">
+          <div class="section-heading"><h2>对焦是什么？</h2><span id="focusReadout">正在对焦：人物 · 3.8 m</span></div>
+          <p>对焦距离就是<strong>相机到你想拍清楚的东西</strong>的距离。点下面的物体试试：被选中的距离最清楚，前后可能变模糊。</p>
+          <div class="focus-row" role="group" aria-label="选择对焦对象">
+            <button class="focus-choice" data-focus="flower" type="button"><span class="emoji">✿</span><span>近处花朵<small id="flowerDist">3.1 m</small></span></button>
+            <button class="focus-choice active" data-focus="person" type="button"><span class="emoji">●</span><span>中间人物<small id="personDist">3.8 m</small></span></button>
+            <button class="focus-choice" data-focus="house" type="button"><span class="emoji">⌂</span><span>远处房屋<small id="houseDist">11.8 m</small></span></button>
+          </div>
+          <div class="depth-track" aria-hidden="true"><span class="track-flower">✿</span><span class="track-person">●</span><span class="track-house">⌂</span><i id="depthMarker"></i></div>
+          <div class="track-labels"><span>相机 / 近</span><span>远</span></div>
+        </div>
+      </div>
+      <aside class="controls card">
+        <div class="section-heading"><h2>镜头控制台</h2><span class="live-dot">实时预览</span></div>
+        <div class="control"><div class="control-label"><label for="focal">焦距</label><strong id="focalValue">50 mm</strong></div><input type="range" id="focal" min="18" max="200" step="1" value="50"><div class="range-ends"><span>18 mm · 广角</span><span>200 mm · 长焦</span></div><p>保持人物大小不变时，广角要走近，长焦要后退。透视变化主要来自<strong>拍摄位置</strong>。</p></div>
+        <div class="control"><div class="control-label"><label for="aperture">光圈</label><strong id="apertureValue">f/2.8</strong></div><input type="range" id="aperture" min="1.4" max="16" step="0.1" value="2.8"><div class="range-ends"><span>f/1.4 · 更虚</span><span>f/16 · 更清楚</span></div><p>f 后面的数字越小，光圈越大，偏离对焦位置的景物越模糊。</p></div>
+        <div class="quick"><span>一键对比</span><div><button type="button" data-preset="18,5.6,person">广角 18mm</button><button type="button" data-preset="135,5.6,person">长焦 135mm</button><button type="button" data-preset="85,1.4,person">浅景深</button></div></div>
+        <div class="metrics"><div><span>水平视角</span><strong id="angleValue">39.6°</strong></div><div><span>远山相对大小</span><strong id="mountainValue">—</strong></div><div><span>清晰范围（约）</span><strong id="dofValue">—</strong></div></div>
+        <div class="challenge" id="challenge"><div class="challenge-title"><span>小挑战</span><strong id="score">0 分</strong></div><p id="challengeText">让人物清楚、房屋虚化：先对焦人物，再试试长焦与大光圈。</p></div>
+      </aside>
+    </section>
+    <p class="footnote">示意采用全画幅 36 mm 宽传感器。透视按拍摄位置计算；景深和失焦模糊为便于观察的近似展示。</p>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
